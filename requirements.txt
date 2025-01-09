@@ -3,5 +3,5 @@ Flask-WTF
 email_validator
 Flask-SQLAlchemy
 Flask-Login
-Migrate
+Flask-Migrate
 gunicorn
