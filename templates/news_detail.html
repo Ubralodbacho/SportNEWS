@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <h3 class="mt-3">
+            <a href="/{{ news.category }}" style="text-decoration: none; color: grey;">უკან დაბრუნება</a>
+        </h3><br>        
+        <div class="col-md-8 mt-5">
+            <h1 class="display-3">{{ news.name }}</h1> 
+            <img src="/static/{{ news.img }}" class="rounded mb-4 mt-5" alt="{{ news.name }}">
+        </div>
+        <p class="lead">{{ news.descrip }}</p>
+        
+        <!-- თარიღის გამოტანა -->
+        <p class="text-muted">
+            <small>გამოყენებულია: {{ news.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</small>
+        </p>
+
+        <!-- Flash success or warning message -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="alert alert-warning">
+                    {% for category, message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- კომენტარების ფორმა -->
+        {% if current_user.is_authenticated %}
+        <h4>კომენტარები</h4>
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            <div class="mb-3">
+                {{ form.content.label(class="form-label") }}
+                {{ form.content(class="form-control", rows="3") }}
+            </div>
+            <button type="submit" class="btn btn-primary">კომენტარის დამატება</button>
+        </form>
+        {% else %}
+        <p>თუ გსურთ კომენტარის დამატება, გთხოვთ შეისწავლოთ <a href="{{ url_for('login') }}">ლოგინი</a>.</p>
+        {% endif %}
+
+        <div class="mt-4">
+            {% for comment in comments %}
+            <div class="comment mb-3">
+                <p><strong>{{ comment.user.username }}</strong> <small>{{ comment.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</small></p>
+                <p>{{ comment.content }}</p>
+
+                {% if current_user.id == comment.user.id or current_user.role == 'Admin' %}
+                <a href="{{ url_for('delete_comment', comment_id=comment.id) }}" class="btn btn-danger btn-sm">წაშლა</a>
+                <a href="{{ url_for('edit_comment', comment_id=comment.id) }}" class="btn btn-warning btn-sm">რედაქტირება</a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

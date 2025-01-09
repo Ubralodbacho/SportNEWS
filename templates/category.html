@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container col">
+    <div class="row">
+        <h1 class="mt-5">
+            <a href="/" style="text-decoration: none; color: grey;">მთავარი</a> > {{ category | capitalize }}
+        </h1><br>
+
+        {% if current_user.role == 'Admin' %}
+        <!-- მხოლოდ ადმინისთვის პირველი ქარდი -->
+        <div class="card m-3 mt-5 shadow-lg" style="width: 25rem;">
+            <div class="card-body text-center">
+                <h5 class="card-title text-warning">ინფორმაციის დამატება</h5>
+                <p class="card-text">თქვენ შეგიძლიათ დაამატოთ ახალი სიახლეები და განაახლოთ არსებული ინფორმაცია.</p>
+                <a href="/add_news" class="btn btn-outline-warning btn-lg">დამატება</a>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if news %}
+            {% for new in news %}
+            <div class="card m-3 mt-5" style="width: 25rem;">
+                <img src="/static/{{ new.img }}" class="card-img-top" alt="..." style="width: 100%;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ new.name }}</h5>
+
+                    {% if current_user.role == 'Admin' %}
+                    <!-- მხოლოდ ადმინისტრატორებისთვის გამოჩნდება ეს ღილაკი -->
+                    <a href="/edit_news/{{ new.id }}" class="btn btn-info">რედაქტირება</a>
+                    <a href="/delete_news/{{ new.id }}" class="btn btn-danger" onclick="return confirm('დარწმუნებული ხართ, რომ გსურთ ამ სიახლის წაშლა?')">წაშლა</a>
+                    {% endif %}
+
+                    <a href="/news_detail/{{ new.id }}" class="btn btn-warning">დეტალურად</a>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p>ამ კატეგორიისთვის სიახლეები არ მოიძებნა.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

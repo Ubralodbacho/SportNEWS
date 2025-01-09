@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="image-container">
+    <img src="../static/498776.jpg" class="full-screen">
+    <div class="overlay-text">
+        <h1>ყველა სპორტული საიხლე ერთ სივრცეში</h1>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <div class="row">
+        <div>
+            <h1 style="display: inline-block;">ᲬᲐᲘᲙᲘᲗᲮᲔᲗ ᲣᲐᲮᲚᲔᲡᲘ ᲐᲛᲑᲔᲑᲘ</h1>
+        </div>
+        
+        <div id="carouselExampleCaptions" class="carousel slide mt-4" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+        
+            <div class="carousel-inner">   
+                {% for new in latest_news %}
+                <div class="carousel-item {% if loop.first %}active{% endif %}">
+                    <a href="{{ url_for('news_detail', news_id=new.id) }}">
+                        <img src="/static/{{ new.img }}" class="d-block w-100" alt="...">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>{{ new.name }}</h5>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        
+            <!-- Carousel controls -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

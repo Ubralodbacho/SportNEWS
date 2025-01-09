@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container col">
+    <div class="row">
+        <h1 class="mt-5">
+            <a href="/" style="text-decoration: none; color: grey;">მთავარი</a> > მოძებნილი შედეგები: "{{ query }}"
+        </h1><br>
+
+        {% if results %}
+            {% for news_item in results %}
+            <div class="card m-3 mt-5" style="width: 25rem;">
+                <img src="/static/{{ news_item.img }}" class="card-img-top" alt="..." style="width: 100%;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ news_item.name }}</h5>
+                    <p class="card-text">{{ news_item.descrip[:100] }}...</p>
+
+                    <a href="/news_detail/{{ news_item.id }}" class="btn btn-warning">დეტალურად</a>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p>თქვენი ძიების შედეგად არაფერი მოიძებნა.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

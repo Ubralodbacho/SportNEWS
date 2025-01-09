@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-5">
+    <h1>რედაქტირება: {{ news.name }}</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+
+        <div class="form-group mt-5">
+            <label for="name mt-3">სახელი</label>
+            {{ form.name(class="form-control") }}
+        </div>
+
+        <div class="form-group mt-5">
+            <label for="img mt-3">სურათი</label>
+            {{ form.img(class="form-control") }}
+        </div>
+
+        <div class="form-group mt-5">
+            <label for="descrip mt-3">აღწერა</label>
+            {{ form.descrip(class="form-control") }}
+        </div>
+
+        <div class="form-group mt-5">
+            <label for="category mt-3">კატეგორია</label>
+            {{ form.category(class="form-control") }}
+        </div>
+
+        <div class="form-group mt-5">
+            <button type="submit" class="btn btn-primary">{{ form.submit.label }}</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

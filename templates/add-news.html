@@ -1,0 +1,24 @@
+{% extends "base.html"%}
+{% block content %}
+<div class="container mt-5 p-3 bg-white h-100 rounded">
+    <form method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <div class="row mt-5">
+            {{ form.name(class = "form-control", placeholder = form.name.label.text ) }}
+        </div>
+        <div class="row mt-5">
+            {{ form.img (class = "form-control", placeholder = form.img.label.text, accepts= ".jpg,.png,.jpeg")}}
+        </div>
+        <div class="row mt-5">
+            {{ form.descrip (class = "form-control", placeholder = form.descrip.label.text)}}
+        </div>  
+        <div class="row mt-5">
+            {{ form.category (class = "form-control", placeholder = form.category.label.text)}}
+        </div>    
+        <div class="row mt-5">
+            {{ form.submit(class= "btn btn-success")}}
+        </div>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>კომენტარის რედაქტირება</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+            {{ form.content.label(class="form-label") }}
+            {{ form.content(class="form-control", rows="3") }}
+        </div>
+        <button type="submit" class="btn btn-primary">განახლება</button>
+    </form>
+</div>
+{% endblock %}
